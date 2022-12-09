@@ -1,2 +1,2 @@
 # PB1-FogMeter
-Página web de FogMeter, un sistema de monitoreo de pacientes con Parkinson.
+Página web y repositorio de FogMeter, un sistema de monitoreo de pacientes con Parkinson.
