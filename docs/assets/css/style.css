@@ -2202,3 +2202,8 @@ section {
   font-size: 13px;
   color: #ddd;
 }
+
+.blog-img{
+  max-width: 95%;
+  height: auto;
+}
