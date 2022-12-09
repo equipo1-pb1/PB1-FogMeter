@@ -1,0 +1,367 @@
+WindowManager:
+    LoginWindow:
+    RegisterWindow:
+    PersonalWindow:
+    StartWindow:
+    MonitoringWindow:
+    DataHistoryWindow:
+    DisplayResultsWindow:
+
+<ConnectItemSelect>:
+    on_release: root.setter(check)
+
+    CheckboxLeftWidget:
+        id: check
+        group: "check"
+
+<LoginWindow>:
+    name: "login_window"
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 20
+
+        MDLabel:
+            text: "¡Bienvenido!"
+            font_style: "H3"
+            pos_hint: {"center_x": .5}
+            size_hint_x: .8
+            halign:"center"
+            size_hint_y: .1
+
+
+        MDTextField:
+            id: user_login_dni
+            mode: "fill"
+            hint_text: "DNI"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            max_text_length: 8
+            radius: 10, 10, 10, 10
+
+        MDTextField:
+            id: user_login_password
+            mode: "fill"
+            hint_text: "Contraseña"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            radius: 10, 10, 10, 10
+
+        MDRaisedButton:
+            icon: "android"
+            text: "Ingresar"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 27
+            on_release: root.login()
+
+        MDLabel:
+            text: "No tienes una cuenta?"
+            font_style: "Body1"
+            pos_hint: {"center_x": .5}
+            size_hint_x: .8
+            size_hint_y: .01
+            halign:"center"
+
+        MDRaisedButton:
+            icon: "android"
+            text: "Regístrate"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 27
+            on_release: root.manager.current = "register_window"
+
+        Widget:
+            size_hint_y: .1
+
+
+<RegisterWindow>:
+    name: "register_window"
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 20
+    
+        MDIconButton:
+            icon: "arrow-left"
+            on_release: 
+                root.manager.current = "login_window"
+                app.root.get_screen("login_window").manager.transition.direction = "right"
+
+        MDLabel:
+            text: "Registro"
+            font_style: "H3"
+            pos_hint: {"center_x": .5}
+            size_hint_x: .8
+            halign:"center"
+            size_hint_y: .1
+        
+        MDTextField:
+            id: user_name
+            hint_text: "Nombre y apellidos"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+
+        MDTextField:
+            id: user_dni
+            hint_text: "DNI"
+            icon_right: "account"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+
+        MDTextField:
+            id: user_password
+            hint_text: "Contraseña"
+            icon_right: "lock"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+
+        MDFillRoundFlatButton:
+            text: "Siguiente"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 25
+            on_release: root.register()
+        
+        Widget:
+            size_hint_y: .1
+
+<Check@MDCheckbox>:
+    group: 'group'
+    size_hint: None, None
+    size: dp(48), dp(48)
+
+<PersonalWindow>:
+    name: "personal_window"
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 20
+
+        MDLabel:
+            text: "Datos Personales"
+            font_style: "H4"
+            pos_hint: {"center_x": .5}
+            size_hint_x: .8
+            halign:"center"
+            size_hint_y: .05
+
+        MDTextField:
+            id: user_age
+            hint_text: "Edad"
+            icon_right: "calendar"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 5
+            size_hint_x: .8
+            size_hint_y: .01
+            pos_hint: {"center_x": .5}
+            MDLabel:
+                text: "Sexo:"
+                pos_hint:{"center_y":.5}
+                size_hint_x: .2
+            Check:
+                id: female
+                active: True
+                pos_hint:{"center_y":.5}
+                size_hint_x: .1
+                on_active: root.on_checkbox_active(self, self.active, "F")
+            MDLabel:
+                text: "F"
+                pos_hint:{"center_y":.5}
+                size_hint_x: .1
+            MDIcon:
+                icon: "gender-female"
+                pos_hint: {"center_y": .5}
+                size_hint_x: .1
+            Check:
+                id: male
+                pos_hint:{"center_y":.5}
+                size_hint_x: .1
+                on_active: root.on_checkbox_active(self, self.active, "M")
+            MDLabel:
+                text: "M"
+                pos_hint:{"center_y":.5}
+                size_hint_x: .1
+            MDIcon:
+                icon: "gender-male"
+                pos_hint: {"center_y": .5}
+                size_hint_x: .1
+        
+        MDLabel:
+            text: "*Opcional:"
+            font_style: "Body1"
+            pos_hint: {"center_x": .5}
+            size_hint_y: 0.01
+            size_hint_x: .8
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+
+        MDTextField:
+            id: user_diag
+            hint_text: "Fecha de diagnóstico"
+            helper_text: "dd/mm/aa"
+            icon_right: "calendar"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+
+        MDTextField:
+            id: user_mail
+            hint_text: "Correo de su médico"
+            icon_right: "email"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+
+        MDFillRoundFlatButton:
+            text: "¡Listo!"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 25
+            on_release: root.add_personal_data()
+        
+        Widget:
+            size_hint_y: .1
+
+<StartWindow>:
+    name: "start_window"
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 40
+        MDIconButton:
+            icon: "arrow-left"
+            on_release: 
+                root.manager.current = "login_window"
+                app.root.get_screen("login_window").manager.transition.direction = "right"
+
+        MDLabel:
+            text: "Hola Edu,\n¿Qué deseas hacer?"
+            font_style: "H6"
+            pos_hint: {"center_x": .5}
+            size_hint_x: .8
+            halign:"center"
+            size_hint_y: .05
+
+        MDFillRoundFlatButton:
+            text: "Historial"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 25
+            on_release: root.manager.current = "dh_window"
+        
+        MDFillRoundFlatButton:
+            text: "Monitoreo"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 25
+            on_release: root.manager.current = "monitor_window"
+
+        Widget:
+            size_hint_y: .2
+
+
+<MonitoringWindow>:
+    name: "monitor_window"
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 30
+        MDIconButton:
+            icon: "arrow-left"
+            on_release: 
+                root.manager.current = "start_window"
+                app.root.get_screen("start_window").manager.transition.direction = "right"
+
+        MDLabel:
+            text: "Monitoreo nuevo:\nRecuerda encender el dispositivo y vincularlo con bluetooth"
+            font_style: "H6"
+            pos_hint: {"center_x": .5}
+            size_hint_x: .8
+            halign:"center"
+            size_hint_y: .05
+
+        MDFillRoundFlatButton:
+            text: "Establecer conexión"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 25
+            on_release: root.start_connection()
+        
+        MDFillRoundFlatButton:
+            id: start_test_button
+            text: "Iniciar monitoreo"
+            disabled: True
+            size_hint_x: .8
+            pos_hint: {"center_x": .5}
+            font_size: 25
+            on_release: root.start_test()
+        
+        Widget:
+            size_hint_y: .2
+
+<DataHistoryWindow>:
+    name: "dh_window"
+    
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 30
+
+        MDTopAppBar:
+            id:dh_topbar
+            title: "Hoy"
+            left_action_items: [["arrow-left", lambda x: root.back()]]
+
+        ScrollView:
+            MDList:
+                id: dh_list
+        
+        BoxLayout:
+            orientation:"horizontal"
+            spacing: 50
+            padding: 20
+        
+            MDRectangleFlatButton:
+                id: data_button
+                text: "Aceleración"
+                md_bg_color: app.theme_cls.primary_color
+                text_color: "white"
+                size_hint_x: .2
+                font_size: 15
+                on_release: root.switch_data()
+            
+            MDRectangleFlatButton:
+                text: "Elegir Fecha"
+                md_bg_color: app.theme_cls.primary_color
+                text_color: "white"
+                size_hint_x: .2
+                font_size: 15
+                on_release: root.show_date_picker()
+
+        Widget:
+            size_hint_y: .005
+
+<DisplayResultsWindow>:
+    name: "dr_window"
+
+    BoxLayout:
+        orientation:"vertical"
+        spacing: 30    
+        
+        MDTopAppBar:
+            id:dr_topbar
+            title: "Hoy"
+            left_action_items: [["arrow-left", lambda x: root.back()]]
+
+    
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 30   
+            id: dr_box
+
+        Widget:
+            size_hint_y: .4
+        
